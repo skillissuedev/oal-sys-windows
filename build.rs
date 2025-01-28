@@ -1,3 +1,4 @@
+use std::env;
 #[cfg(feature = "generate")]
 const HEADER: &str = "/* OpenAL */
 #include <AL/al.h>
@@ -100,8 +101,35 @@ fn generate(path: &std::path::Path) {
     file.write_all(b"}\n").unwrap();
 }
 
+#[cfg(target_pointer_width = "64")]
 fn main() {
-    println!("cargo:rustc-link-lib=openal");
+    let target = env::var("TARGET").unwrap();
+    let windows = target.contains("windows");
+    if windows {
+	println!("cargo:rustc-link-lib=OpenAL32");
+	println!("cargo:rustc-link-search=C:\\Program Files (x86)\\OpenAL 1.1 SDK\\libs\\Win64\\");
+} else {
+        println!("cargo:rustc-link-lib=openal");
+    }
+
+
+    #[cfg(feature = "generate")]
+    generate(&std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap()));
+}
+
+
+#[cfg(target_pointer_width = "32")]
+fn main() {
+    let target = env::var("TARGET").unwrap();
+    let windows = target.contains("windows");
+    if windows {
+	println!("cargo:rustc-link-lib=OpenAL32");
+	println!("cargo:rustc-link-search=C:\\Program Files (x86)\\OpenAL 1.1 SDK\\libs\\Win32\\");
+} else {
+        println!("cargo:rustc-link-lib=openal");
+    }
+
+
     #[cfg(feature = "generate")]
     generate(&std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap()));
 }

@@ -1,9 +1,9 @@
 [package]
-name = "oal-sys"
-description = "OpenAL bindings"
-version = "0.0.2"
-authors = ["AlexApps99 <alex.apps99@gmail.com>"]
-repository = "https://github.com/AlexApps99/oal-sys"
+name = "oal-sys-windows"
+description = "OpenAL bindings with Windows support"
+version = "0.0.3"
+authors = ["AlexApps99 <alex.apps99@gmail.com>", "sid <me@skillissuedev.net>"]
+repository = "https://github.com/skillissuedev/oal-sys-windows"
 keywords = ["openal", "oal", "sound", "audio", "openal-soft"]
 categories = ["multimedia::audio", "external-ffi-bindings"]
 edition = "2018"
